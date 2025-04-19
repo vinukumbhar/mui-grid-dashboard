@@ -98,15 +98,19 @@ const StyledBreadcrumbs = styled(Breadcrumbs)(({ theme }) => ({
 
 // Mapping full and partial paths to display names
 const pathToName = {
-  '': 'Home',
+  insights: 'Insights',
   analytics: 'Analytics',
   clients: 'Clients',
-  new: 'New Client',
-  all: 'All Clients',
-  tasks: 'Tasks',
+  accounts: 'Accounts',
+  contacts: 'Contacts',
+  jobs:'Jobs',
+  tasks:'Tasks',
+  pipelines:'Pipelines',
+  workflow: 'Workflow',
+  billing:'Billing',
+  templates:'Templates',
   settings: 'Settings',
-  about: 'About',
-  feedback: 'Feedback',
+ 
 };
 
 export default function NavbarBreadcrumbs() {
@@ -119,7 +123,7 @@ export default function NavbarBreadcrumbs() {
       separator={<NavigateNextRoundedIcon fontSize="small" />}
     >
       <Typography variant="body1" color="text.primary">
-        Dashboard
+      Home
       </Typography>
 
       {pathnames.length === 0 ? (

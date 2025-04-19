@@ -45,14 +45,14 @@ export default function Dashboard(props) {
             <Header />
 
             <Routes>
-              <Route path="/" element={<MainGrid />} />
+              <Route path="/insights" element={<MainGrid />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/clients" element={<Clients />}>
                
               </Route>
               <Route path="/clients/accounts" element={<AccountsList />} />
               <Route path="/tasks" element={<Tasks />} />
-              {/* add more routes if needed */}
+             
             </Routes>
           </Stack>
         </Box>

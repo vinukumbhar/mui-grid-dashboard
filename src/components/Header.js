@@ -5,10 +5,16 @@ import CustomDatePicker from './CustomDatePicker';
 import NavbarBreadcrumbs from './NavbarBreadcrumbs';
 import MenuButton from './MenuButton';
 import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
-
+import AddIcon from '@mui/icons-material/Add';
 import Search from './Search';
+import SecondSidebar from './SecondSidebar';
 
 export default function Header() {
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
   return (
     <Stack
       direction="row"
@@ -23,7 +29,12 @@ export default function Header() {
       spacing={2}
     >
       <NavbarBreadcrumbs />
+    
       <Stack direction="row" sx={{ gap: 1 }}>
+      <MenuButton  aria-label="menu" onClick={toggleDrawer(true)}>
+        <AddIcon /> 
+      </MenuButton>
+      <SecondSidebar open={open} toggleDrawer={toggleDrawer}/>
         <Search />
         <CustomDatePicker />
         <MenuButton showBadge aria-label="Open notifications">

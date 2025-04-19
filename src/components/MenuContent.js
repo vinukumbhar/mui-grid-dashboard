@@ -1,53 +1,74 @@
-import * as React from 'react';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import AnalyticsRoundedIcon from '@mui/icons-material/AnalyticsRounded';
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded';
-import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Collapse } from '@mui/material';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-// const mainListItems = [
-//   { text: 'Home', icon: <HomeRoundedIcon /> },
-//   { text: 'Analytics', icon: <AnalyticsRoundedIcon /> },
-//   { text: 'Clients', icon: <PeopleRoundedIcon /> },
-//   { text: 'Tasks', icon: <AssignmentRoundedIcon /> },
-// ];
-
-// const secondaryListItems = [
-//   { text: 'Settings', icon: <SettingsRoundedIcon /> },
-//   { text: 'About', icon: <InfoRoundedIcon /> },
-//   { text: 'Feedback', icon: <HelpRoundedIcon /> },
-// ];
-
+import * as React from "react";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
+import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
+// import AssignmentRoundedIcon from '@mui/icons-material/AssignmentRounded';
+import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
+import AppTheme from "../shared-theme/AppTheme"
+import { useLocation, useNavigate } from "react-router-dom";
+import { Collapse } from "@mui/material";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
+import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
+import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
+import PlaylistAddOutlinedIcon from "@mui/icons-material/PlaylistAddOutlined";
 
 const mainListItems = [
-  { text: 'Home', icon: <HomeRoundedIcon />, path: '/' },
-  { text: 'Analytics', icon: <AnalyticsRoundedIcon />, path: '/analytics' },
-  { text: 'Clients', icon: <PeopleRoundedIcon />, path: '/clients', children: [
-    { text: 'Accounts', icon: <FiberManualRecordIcon />,path: '/clients/accounts' },
-    { text: 'Contacts', icon: <FiberManualRecordIcon />,path: '/clients/contacts' },
-  ], },
-  { text: 'Tasks', icon: <AssignmentRoundedIcon />, path: '/tasks' },
+  { text: "Insights", icon: <HomeRoundedIcon />, path: "/insights" },
+  { text: "Analytics", icon: <AnalyticsRoundedIcon />, path: "/analytics" },
+  {
+    text: "Clients",
+    icon: <PeopleRoundedIcon />,
+    path: "/clients",
+    children: [
+      { text: "Accounts", icon: <FiberManualRecordIcon />, path: "/accounts" },
+      { text: "Contacts", icon: <FiberManualRecordIcon />, path: "/contacts" },
+    ],
+  },
+  {
+    text: "Workflow",
+    icon: <LayersOutlinedIcon />,
+    path: "/workfolw",
+    children: [
+      { text: "Jobs", icon: <FiberManualRecordIcon />, path: "/jobs" },
+      { text: "Tasks", icon: <FiberManualRecordIcon />, path: "/tasks" },
+      {
+        text: "Pipelines",
+        icon: <FiberManualRecordIcon />,
+        path: "/pipelines",
+      },
+    ],
+  },
+  {
+    text: "Billing",
+    icon: <PaymentsOutlinedIcon />,
+    path: "/billing",
+    children: [
+      {
+        text: "Time Entries",
+        icon: <FiberManualRecordIcon />,
+        path: "/time_entries",
+      },
+      { text: "Invoices", icon: <FiberManualRecordIcon />, path: "/bills" },
+      {
+        text: "Proposals & ELS",
+        icon: <FiberManualRecordIcon />,
+        path: "/proposals",
+      },
+    ],
+  },
+  { text: "Templates", icon: <PlaylistAddOutlinedIcon />, path: "/templates" },
+  { text: "Settings", icon: <SettingsRoundedIcon />, path: "/settings" },
 ];
 
-const secondaryListItems = [
-  { text: 'Settings', icon: <SettingsRoundedIcon />, path: '/settings' },
-  { text: 'About', icon: <InfoRoundedIcon />, path: '/about' },
-  { text: 'Feedback', icon: <HelpRoundedIcon />, path: '/feedback' },
-];
-
-export default function MenuContent() {
+export default function MenuContent(props) {
   const location = useLocation();
   const navigate = useNavigate();
   const [openSubmenus, setOpenSubmenus] = React.useState({});
@@ -58,18 +79,20 @@ export default function MenuContent() {
       [label]: !prev[label],
     }));
   };
-  
+
   const renderMenuItem = (item) => {
-    const isActive = location.pathname === item.path || location.pathname.startsWith(item.path + '/');
+    const isActive =
+      location.pathname === item.path ||
+      location.pathname.startsWith(item.path + "/");
     const hasChildren = Array.isArray(item.children);
     const isOpen = openSubmenus[item.text];
-  
-    return (
-      <React.Fragment key={item.text}>
-        <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton
-           selected={isActive}
 
+    return (
+      <AppTheme {...props}>
+      <React.Fragment key={item.text}>
+        <ListItem disablePadding sx={{ display: "block" }}>
+          <ListItemButton
+            selected={isActive}
             onClick={() => {
               if (hasChildren) {
                 toggleSubmenu(item.text);
@@ -80,13 +103,113 @@ export default function MenuContent() {
             sx={{ borderRadius: 2 }}
           >
             <ListItemIcon >{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+            <ListItemText  sx={{ color: 'text.menu' ,}} >{item.text}</ListItemText>
             {hasChildren && (isOpen ? <ExpandLess /> : <ExpandMore />)}
           </ListItemButton>
         </ListItem>
         {hasChildren && (
           <Collapse in={isOpen} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List
+              component="div"
+              disablePadding
+              sx={{
+                ml: 3, // indent from parent
+                borderLeft: "1px solid #e0e0e0", // light vertical line
+              }}
+            >
+              {item.children.map((child) => (
+                <ListItem key={child.text} disablePadding>
+                  <ListItemButton
+                    selected={location.pathname === child.path}
+                    onClick={() => navigate(child.path)}
+                    sx={{
+                      pl: 3,
+                      mb: 0.9,
+                      borderRadius: 0,
+                      position: "relative",
+                      "&.Mui-selected": {
+                        bgcolor: "#f0f7ff", // light blue background
+                        "&::before": {
+                          content: '""',
+                          position: "absolute",
+                          left: -10,
+                          top: 0,
+                          bottom: 0,
+                          width: "3px",
+                          backgroundColor: "#1976d2", // blue vertical line
+                        },
+                      },
+                    }}
+                  >
+                    <ListItemText sx={{ color: 'text.menu' }}
+                      primary={child.text}
+                      primaryTypographyProps={{ fontSize: "1rem" }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Collapse>
+        )}
+      </React.Fragment>
+      </AppTheme>
+    );
+  };
+
+  return (
+    <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
+      <List dense>{mainListItems.map(renderMenuItem)}</List>
+    </Stack>
+   
+  );
+}
+
+//           <Collapse in={isOpen} timeout="auto" unmountOnExit>
+// <List
+//   component="div"
+//   disablePadding
+//   sx={{
+//     ml: 3, // indent from parent
+//     borderLeft: '1px solid #e0e0e0', // light vertical line
+//   }}
+// >
+//   {item.children.map((child) => (
+//     <ListItem key={child.text} disablePadding>
+//       <ListItemButton
+//         selected={location.pathname === child.path}
+//         onClick={() => navigate(child.path)}
+//         sx={{
+//           pl: 3,
+//           borderRadius: 0,
+//           position: 'relative',
+//           '&.Mui-selected': {
+//             bgcolor: '#f0f7ff', // light blue background
+//             '&::before': {
+//               content: '""',
+//               position: 'absolute',
+//               left: -10,
+//               top: 0,
+//               bottom: 0,
+//               width: '3px',
+//               backgroundColor: '#1976d2', // blue vertical line
+//             },
+//           },
+//           '&:hover': {
+//             bgcolor: '#f9f9f9',
+//           },
+//         }}
+//       >
+//         <ListItemText
+//           primary={child.text}
+//           primaryTypographyProps={{ fontSize: '0.875rem' }}
+//         />
+//       </ListItemButton>
+//     </ListItem>
+//   ))}
+// </List>
+// </Collapse>
+{
+  /* <List component="div" disablePadding>
               {item.children.map((child) => (
                 <ListItem key={child.text} disablePadding >
                   <ListItemButton
@@ -99,97 +222,5 @@ export default function MenuContent() {
                   </ListItemButton>
                 </ListItem>
               ))}
-            </List>
-          </Collapse>
-        )}
-      </React.Fragment>
-    );
-  };
-  
-  return (
-//     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
-//       {/* <List dense>
-//         {mainListItems.map((item, index) => (
-//           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-//             <ListItemButton selected={index === 0}>
-//               <ListItemIcon>{item.icon}</ListItemIcon>
-//               <ListItemText primary={item.text} />
-//             </ListItemButton>
-//           </ListItem>
-//         ))}
-//       </List>
-//       <List dense>
-//         {secondaryListItems.map((item, index) => (
-//           <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-//             <ListItemButton>
-//               <ListItemIcon>{item.icon}</ListItemIcon>
-//               <ListItemText primary={item.text} />
-//             </ListItemButton>
-//           </ListItem>
-//         ))}
-//       </List> */}
-//       <List dense>
-//   {mainListItems.map((item, index) => (
-//     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-//       <ListItemButton
-//         selected={index === 0}
-//         onClick={() => navigate(item.path)}
-//       >
-//         <ListItemIcon>{item.icon}</ListItemIcon>
-//         <ListItemText primary={item.text} />
-//       </ListItemButton>
-//     </ListItem>
-//   ))}
-// </List>
-
-// <List dense>
-//   {secondaryListItems.map((item, index) => (
-//     <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-//       <ListItemButton onClick={() => navigate(item.path)}>
-//         <ListItemIcon>{item.icon}</ListItemIcon>
-//         <ListItemText primary={item.text} />
-//       </ListItemButton>
-//     </ListItem>
-//   ))}
-// </List>
-
-//     </Stack>
-<Stack sx={{ flexGrow: 1, p: 1, justifyContent: 'space-between' }}>
-      {/* <List dense>
-        {mainListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              selected={location.pathname === item.path}
-              onClick={() => navigate(item.path)}
-              sx={{
-                borderRadius: 2,
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List> */}
-<List dense>
-  {mainListItems.map(renderMenuItem)}
-</List>
-      <List dense>
-        {secondaryListItems.map((item, index) => (
-          <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              selected={location.pathname === item.path}
-              onClick={() => navigate(item.path)}
-              sx={{
-                borderRadius: 2,
-              }}
-            >
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Stack>
-  );
+            </List> */
 }
