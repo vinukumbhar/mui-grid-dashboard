@@ -15,31 +15,50 @@ const mainListItems = [
   { text: "Jobs", icon: <WorkOutlineIcon />,  },
 ];
 
-export default function SecondMenuContent(props) {
-  const renderMenuItem = (item) => {
-    return (
-      <AppTheme {...props}>
-      <React.Fragment key={item.text}>
-        <ListItem disablePadding sx={{ display: "block" }}>
-          <ListItemButton
+// export default function SecondMenuContent(props) {
+//   const renderMenuItem = (item) => {
+//     return (
+//       <AppTheme {...props}>
+//       <React.Fragment key={item.text}>
+//         <ListItem disablePadding sx={{ display: "block" }}>
+//           <ListItemButton
           
-            sx={{ borderRadius: 2 }}
-          >
-            <ListItemIcon >{item.icon}</ListItemIcon>
-            <ListItemText  sx={{ color: 'text.menu' ,}} >{item.text}</ListItemText>
+//             sx={{ borderRadius: 2 }}
+//           >
+//             <ListItemIcon >{item.icon}</ListItemIcon>
+//             <ListItemText  sx={{ color: 'text.menu' ,}} >{item.text}</ListItemText>
          
-          </ListItemButton>
-        </ListItem>
+//           </ListItemButton>
+//         </ListItem>
        
-      </React.Fragment>
-      </AppTheme>
-    );
-  };
+//       </React.Fragment>
+//       </AppTheme>
+//     );
+//   };
+
+//   return (
+//     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
+//       <List dense>{mainListItems.map(renderMenuItem)}</List>
+//     </Stack>
+   
+//   );
+// }
+export default function SecondMenuContent({ onItemClick }) {
+  const renderMenuItem = (item) => (
+    <React.Fragment key={item.text}>
+      <ListItem disablePadding sx={{ display: "block" }}>
+        <ListItemButton onClick={() => onItemClick(item.text)} sx={{ borderRadius: 2 }}>
+          <ListItemIcon>{item.icon}</ListItemIcon>
+          <ListItemText sx={{ color: 'text.menu' }}>{item.text}</ListItemText>
+        </ListItemButton>
+      </ListItem>
+    </React.Fragment>
+  );
 
   return (
     <Stack sx={{ flexGrow: 1, p: 1, justifyContent: "space-between" }}>
       <List dense>{mainListItems.map(renderMenuItem)}</List>
     </Stack>
-   
   );
 }
+

@@ -8,13 +8,23 @@ import ColorModeIconDropdown from '../shared-theme/ColorModeIconDropdown';
 import AddIcon from '@mui/icons-material/Add';
 import Search from './Search';
 import SecondSidebar from './SecondSidebar';
-
+import ThirdSidebar from "./ThirdSidebar"
 export default function Header() {
-  const [open, setOpen] = React.useState(false);
+  const [openNewDrawer, setOpenNewDrawer] = React.useState(false);
 
-  const toggleDrawer = (newOpen) => () => {
-    setOpen(newOpen);
-  };
+
+ 
+const [activeMenuItem, setActiveMenuItem] = React.useState(null);
+
+const toggleNewDrawer = (open) => () => {
+  setOpenNewDrawer(open);
+  if (!open) setActiveMenuItem(null); // Reset on close
+};
+
+const handleMenuItemClick = (itemText) => {
+  setActiveMenuItem(itemText); // Set current menu item
+};
+
   return (
     <Stack
       direction="row"
@@ -31,10 +41,21 @@ export default function Header() {
       <NavbarBreadcrumbs />
     
       <Stack direction="row" sx={{ gap: 1 }}>
-      <MenuButton  aria-label="menu" onClick={toggleDrawer(true)}>
+      <MenuButton  aria-label="menu" onClick={toggleNewDrawer(true)}>
         <AddIcon /> 
       </MenuButton>
-      <SecondSidebar open={open} toggleDrawer={toggleDrawer}/>
+      <SecondSidebar
+  open={openNewDrawer}
+  toggleDrawer={toggleNewDrawer}
+  onMenuItemClick={handleMenuItemClick}
+/>
+
+<ThirdSidebar
+  open={!!activeMenuItem}
+  toggleDrawer={() => setActiveMenuItem(null)}
+  title={activeMenuItem}
+/>
+
         <Search />
         <CustomDatePicker />
         <MenuButton showBadge aria-label="Open notifications">

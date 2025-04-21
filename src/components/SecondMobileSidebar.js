@@ -25,7 +25,7 @@ function SecondSidebar ({ open, toggleDrawer, onMenuItemClick }) {
     >
       <Stack
         sx={{
-          minWidth: '15dvw',
+          minWidth: '30dvw',
           height: '100%',
         }}
       >
