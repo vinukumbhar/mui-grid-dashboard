@@ -9,7 +9,7 @@ import Header from "./components/Header";
 import MainGrid from "./components/MainGrid";
 import SideMenu from "./components/SideMenu";
 import AppTheme from "./shared-theme/AppTheme";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route ,Navigate} from "react-router-dom";
 
 import Analytics from "./pages/Analytics";
 import Clients from "./pages/clients";
@@ -45,6 +45,8 @@ export default function Dashboard(props) {
             <Header />
 
             <Routes>
+              {/* <Route path="/insights" element={<MainGrid />} /> */}
+              <Route path="/" element={<Navigate to="/insights" replace />} />
               <Route path="/insights" element={<MainGrid />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/clients" element={<Clients />}>

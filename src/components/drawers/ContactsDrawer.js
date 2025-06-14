@@ -315,7 +315,7 @@ export default function ContactsDrawer({ onClose }) {
             </FormGrid>
             <FormGrid size={{ xs: 12 }}>
               <FormLabel htmlFor="note">Note</FormLabel>
-              {/* <OutlinedInput
+              <OutlinedInput
                 id="note"
                 name="note"
                 type="note"
@@ -326,8 +326,8 @@ export default function ContactsDrawer({ onClose }) {
                 onChange={(e) => setNote(e.target.value)}
                
                 size="small"
-              /> */}
-              <OutlinedInput
+              />
+              {/* <OutlinedInput
   id="note"
   name="note"
   placeholder="Note"
@@ -341,7 +341,7 @@ export default function ContactsDrawer({ onClose }) {
       resize: 'vertical', // This works only when multiline is true
     },
   }}
-/>
+/> */}
 
             </FormGrid>
             <FormGrid size={{ xs: 12 }}>
